@@ -23,7 +23,17 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
       # Run our unit tests
       - name: Run unit tests
         run: |
           python test_app.py
+
+      - name: Build Docker Image and Push to DockerHub
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: Indian-boult/demo-app
+          tags: latest
+          registry: docker.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
